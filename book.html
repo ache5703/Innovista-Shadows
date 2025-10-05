@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta charset="UTF-8" />
+  <title>Space Weather — Flipbook</title>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="book.css" />
+
+  <style>
+    .page-text-top, .page-text-bottom, .page-text-dialogue, .page-text-info {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+      font-family: "Comic Sans MS", "Poppins", sans-serif;
+      color: #fff6c2;
+      background: rgba(0, 0, 0, 0.35);
+      border-radius: 15px;
+      box-shadow: 0 0 25px rgba(255, 255, 200, 0.4);
+      text-shadow: 1px 1px 3px #000;
+      font-weight: 600;
+      opacity: 0;
+      animation: fadeIn 1.2s ease forwards;
+      line-height: 1.5;
+    }
+
+    .page-text-top { top: 25px; width: 85%; padding: 12px 18px; font-size: 1.8rem; animation-delay: 0.3s; }
+    .page-text-bottom { bottom: 30px; width: 85%; padding: 12px 18px; font-size: 1.8rem; animation-delay: 0.6s; }
+    .page-text-dialogue { bottom: 140px; width: 70%; padding: 10px 16px; font-size: 1.6rem; background: rgba(0,0,0,0.4); border: 2px solid rgba(255,255,255,0.4); animation-delay: 0.5s; }
+    .page-text-info { bottom: 45px; width: 80%; padding: 10px 18px; font-size: 1.6rem; background: rgba(20,20,20,0.45); border: 1px solid rgba(255,255,255,0.25); animation-delay: 0.7s; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateX(-50%) translateY(20px); }
+      to { opacity: 1; transform: translateX(-50%) translateY(0); }
+    }
+
+    .page-text-top b, .page-text-bottom b, .page-text-dialogue b, .page-text-info b {
+      color: #ffe15a;
+      font-weight: 800;
+    }
+
+    body:not(.fullscreen) .page-text-top,
+    body:not(.fullscreen) .page-text-bottom,
+    body:not(.fullscreen) .page-text-dialogue,
+    body:not(.fullscreen) .page-text-info {
+      font-size: 1.3rem;
+      padding: 8px 12px;
+    }
+
+    .controls {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .controls button {
+      background-color: #fff;
+      color: #000;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 16px;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .controls button:hover {
+      background-color: #ffd966;
+      transform: scale(1.05);
+    }
+
+    .fullscreen .flipbook {
+      width: 100vw;
+      height: 100vh;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 100;
+      background: #000;
+    }
+
+    .fullscreen .controls {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 101;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Navbar -->
+  <div class="w3-top">
+    <div class="w3-bar w3-white w3-card" id="myNavbar">
+      <a href="index.html#home" class="w3-bar-item w3-button w3-wide">SPACE WEATHER</a>
+      <div class="w3-right w3-hide-small">
+        <a href="index.html#home" class="w3-bar-item w3-button">HOME</a>
+        <a href="book.html" class="w3-bar-item w3-button"><i class="fa fa-book"></i> BOOK</a>
+        <a href="solarflare.html" class="w3-bar-item w3-button"><i class="fa fa-sun-o"></i> SOLAR FLARES</a>
+        <a href="characters.html" class="w3-bar-item w3-button"><i class="fa fa-users"></i> CHARACTERS</a>
+      </div>
+    </div>
+  </div>
+
+  <main>
+    <div class="flipbook" id="flipbook"></div>
+    <div class="controls">
+      <button id="prevBtn"><i class="fa fa-arrow-left"></i> Back</button>
+      <span id="pageIndicator">1 / 15</span>
+      <button id="nextBtn">Next <i class="fa fa-arrow-right"></i></button>
+      <button id="fullscreenBtn"><i class="fa fa-expand"></i> Full Screen</button>
+    </div>
+  </main>
+
+  <script>
+    const flipbook = document.getElementById("flipbook");
+    const indicator = document.getElementById("pageIndicator");
+    const nextBtn = document.getElementById("nextBtn");
+    const prevBtn = document.getElementById("prevBtn");
+    const fullscreenBtn = document.getElementById("fullscreenBtn");
+
+    const totalPages = 15;
+    let currentPage = 1;
+
+    for (let i = 1; i <= totalPages; i++) {
+      const page = document.createElement("div");
+      page.classList.add("page");
+      if (i !== 1) page.classList.add("hidden");
+      page.style.backgroundImage = `url('page${i}.png')`;
+
+      // Page 3
+      if (i === 3) {
+        const topText = document.createElement("div");
+        topText.classList.add("page-text-top");
+        topText.innerHTML = `Solar particles get propelled through space at high speeds.<br>This is called a <b>radiation storm</b>.`;
+        page.appendChild(topText);
+
+        const bottomText = document.createElement("div");
+        bottomText.classList.add("page-text-bottom");
+        bottomText.innerHTML = `This is <b>Cemy</b>. Cemy is a <b>Coronal Mass Ejection (CME)</b>, which is an enormous cloud of solar material.<br>Cemy is surrounded by his own magnetic field.`;
+        page.appendChild(bottomText);
+      }
+
+      // Page 4
+      if (i === 4) {
+        const topText = document.createElement("div");
+        topText.classList.add("page-text-top");
+        topText.innerHTML = `<b>Cemy</b> has approached a rocket!<br>This is <b>Astro the Astronaut's</b> rocket.`;
+        page.appendChild(topText);
+
+        const dialogue = document.createElement("div");
+        dialogue.classList.add("page-text-dialogue");
+        dialogue.innerHTML = `<b>Astro (on the phone):</b> “Hey, Skye! Yeah, I'm just heading out to my spacewalk soon. How—” (cuts off)`;
+        page.appendChild(dialogue);
+
+        const info = document.createElement("div");
+        info.classList.add("page-text-info");
+        info.innerHTML = `It looks like <b>Cemy’s magnetic field</b> is messing with the <b>magnetic field</b> of Astro’s rocket!`;
+        page.appendChild(info);
+      }
+
+      // Page 5
+      if (i === 5) {
+        const topText = document.createElement("div");
+        topText.classList.add("page-text-top");
+        topText.innerHTML = `<b>Cemy</b> left <b>Astro's ship</b> in a jumble!`;
+        page.appendChild(topText);
+
+        const bottomText = document.createElement("div");
+        bottomText.classList.add("page-text-bottom");
+        bottomText.innerHTML = `The <b>communication</b> and <b>navigation systems</b> are down.<br>This is dangerous for <b>Astro</b>!`;
+        page.appendChild(bottomText);
+      }
+
+      // Page 6
+      if (i === 6) {
+        const dialogue = document.createElement("div");
+        dialogue.classList.add("page-text-top");
+        dialogue.innerHTML = `<b>Astro:</b> “Woah! Everything is falling! That big burst of particles must have caused this!”`;
+        page.appendChild(dialogue);
+
+        const bottomText = document.createElement("div");
+        bottomText.classList.add("page-text-bottom");
+        bottomText.innerHTML = `<b>Astro:</b> “Now I can't go on my spacewalk!”`;
+        page.appendChild(bottomText);
+      }
+
+      // Page 7
+      if (i === 7) {
+        const topText = document.createElement("div");
+        topText.classList.add("page-text-top");
+        topText.innerHTML = `This is <b>Captain Skye</b>.<br>Captain Skye is a <b>pilot</b> flying across the <b>Poles</b> to make an important shipment.`;
+        page.appendChild(topText);
+
+        const dialogue = document.createElement("div");
+        dialogue.classList.add("page-text-dialogue");
+        dialogue.innerHTML = `<b>Phone:</b> “Hey Skye [static] I'm just heading out—”`;
+        page.appendChild(dialogue);
+      }
+
+      // Page 8
+      if (i === 8) {
+        const topText = document.createElement("div");
+        topText.classList.add("page-text-top");
+        topText.innerHTML = `Oh no! <b>Cemy</b> is at it again!<br>His <b>magnetic waves</b> are interfering with the plane’s <b>radio</b> and <b>autopilot</b> devices!`;
+        page.appendChild(topText);
+
+        const dialogue = document.createElement("div");
+        dialogue.classList.add("page-text-dialogue");
+        dialogue.style.bottom = "90px";
+        dialogue.innerHTML = `<b>Skye:</b> “Hello? Tower, can you read me? I believe we hit a <b>solar storm</b>.<br>Switching to manual control and making an emergency landing.”`;
+        page.appendChild(dialogue);
+      }
+
+      // Page 9
+      if (i === 9) {
+        const topText = document.createElement("div");
+        topText.classList.add("page-text-top");
+        topText.innerHTML = `<b>Farmer Sam</b> is using his tractor to tend to the crops.<br>The receiver in the tractor helps Sam find his way through the tall corn fields.`;
+        page.appendChild(topText);
+
+        const thought = document.createElement("div");
+        thought.classList.add("page-text-dialogue");
+        thought.innerHTML = `<b>Farmer Sam’s Thoughts:</b> “Hm, looks like my fertilizer shipment is late today.”`;
+        page.appendChild(thought);
+      }
+
+      // Page 10
+      if (i === 10) {
+        const topText = document.createElement("div");
+        topText.classList.add("page-text-top");
+        topText.innerHTML = `Not again! <b>Cemy</b>! What a troublesome storm!`;
+        page.appendChild(topText);
+
+        const bottomText = document.createElement("div");
+        bottomText.classList.add("page-text-bottom");
+        bottomText.innerHTML = `The tractor is veering off course!<br><b>Watch out, Sam!</b>`;
+        page.appendChild(bottomText);
+      }
+
+      flipbook.appendChild(page);
+    }
+
+    const pages = document.querySelectorAll(".page");
+    function updateBook() {
+      pages.forEach((p, i) => p.classList.toggle("hidden", i !== currentPage - 1));
+      indicator.textContent = `${currentPage} / ${totalPages}`;
+    }
+
+    nextBtn.onclick = () => { if (currentPage < totalPages) { currentPage++; updateBook(); } };
+    prevBtn.onclick = () => { if (currentPage > 1) { currentPage--; updateBook(); } };
+
+    fullscreenBtn.onclick = () => {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen();
+        document.body.classList.add("fullscreen");
+        fullscreenBtn.innerHTML = '<i class="fa fa-compress"></i> Exit Full Screen';
+      } else {
+        document.exitFullscreen();
+        document.body.classList.remove("fullscreen");
+        fullscreenBtn.innerHTML = '<i class="fa fa-expand"></i> Full Screen';
+      }
+    };
+  </script>
+</body>
+</html>

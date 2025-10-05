@@ -1,0 +1,154 @@
+/* ====== Font and Base ====== */
+body, h1, h2, h3, h4, h5, h6 {
+    font-family: "Raleway", sans-serif;
+  }
+  
+  /* ====== Deep Darker Space Blue Background ====== */
+  html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #000214; /* darker navy base */
+    background-image:
+      radial-gradient(circle at 40% 50%, rgba(0, 60, 160, 0.4) 0%, rgba(0, 15, 40, 0.9) 60%, #000010 100%),
+      url("galaxy.jpg");
+    background-blend-mode: screen;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    color: #fff;
+    overflow: hidden;
+    position: relative;
+  }
+  
+  /* ✨ Soft Star Shimmer */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: repeating-radial-gradient(
+      circle,
+      rgba(255, 255, 255, 0.08) 0,
+      rgba(255, 255, 255, 0.08) 1px,
+      transparent 1px,
+      transparent 100px
+    );
+    opacity: 0.2;
+    animation: twinkle 80s linear infinite;
+    z-index: 0;
+    pointer-events: none;
+  }
+  
+  @keyframes twinkle {
+    from { background-position: 0 0; }
+    to { background-position: -1000px 1000px; }
+  }
+  
+  /* Gentle overlay for readability */
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 5, 20, 0.55);
+    z-index: 0;
+    pointer-events: none;
+  }
+  
+  /* Keep main content visible */
+  .w3-top,
+  main,
+  .controls {
+    position: relative;
+    z-index: 1;
+  }
+  
+  /* ====== Centered Main Layout ====== */
+  main {
+    padding-top: 120px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100vh - 120px);
+    width: 100%;
+    box-sizing: border-box;
+    overflow: visible;
+  }
+  
+  /* ====== Flipbook ====== */
+  .flipbook {
+    width: 900px;
+    height: 550px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    perspective: 2500px;
+    border-radius: 16px;
+    background: rgba(0, 0, 25, 0.55);
+    box-shadow: 0 0 35px rgba(0, 100, 255, 0.25);
+    margin: 0 auto;
+    transform: translateY(-25px);
+    overflow: hidden;
+  }
+  
+  /* ====== Page Style ====== */
+  .page {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-size: cover;
+    background-position: center;
+    border-radius: 16px;
+    backface-visibility: hidden;
+    transition: transform 1s ease;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.15);
+  }
+  
+  .page.hidden {
+    display: none;
+  }
+  
+  /* ====== Controls ====== */
+  .controls {
+    margin-top: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    font-family: "Verdana", sans-serif;
+  }
+  
+  .controls button {
+    background: #fff;
+    color: #000;
+    font-weight: bold;
+    font-family: "Verdana", sans-serif;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: 0.3s;
+    text-transform: uppercase;
+  }
+  
+  .controls button:hover {
+    background: #2da8ff;
+    color: #000;
+    transform: scale(1.1);
+  }
+  
+  .controls span {
+    color: #fff;
+    font-size: 1.2rem;
+  }
+  
+  /* ====== Responsive ====== */
+  @media (max-width: 1000px) {
+    .flipbook {
+      width: 90vw;
+      height: 55vh;
+      transform: translateY(0);
+    }
+  }
+  

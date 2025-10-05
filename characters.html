@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Space Weather — Meet the Characters</title>
+
+  <!-- External Styles -->
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+  <link rel="stylesheet" href="style.css" />
+
+  <style>
+    html { -webkit-text-size-adjust: 100%; }
+
+    /* ===== Background (same as solarflare.html) ===== */
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      background-color: #000214;
+      background-image:
+        radial-gradient(circle at 40% 50%, rgba(0, 60, 160, 0.4) 0%, rgba(0, 15, 40, 0.9) 60%, #000010 100%),
+        url("galaxy.jpg");
+      background-blend-mode: screen;
+      background-size: cover;
+      background-attachment: fixed;
+      background-position: center;
+      color: #fff;
+      overflow-y: auto;
+      font-family: "Raleway", sans-serif;
+    }
+
+    /* ✨ Star shimmer + overlay (same as solarflare.html) */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: repeating-radial-gradient(
+        circle,
+        rgba(255, 255, 255, 0.08) 0,
+        rgba(255, 255, 255, 0.08) 1px,
+        transparent 1px,
+        transparent 100px
+      );
+      opacity: 0.2;
+      animation: twinkle 80s linear infinite;
+      z-index: 0;
+    }
+    @keyframes twinkle { from {background-position:0 0;} to {background-position:-1000px 1000px;} }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 5, 20, 0.55);
+      z-index: 0;
+    }
+
+    .w3-top, header, .character-grid { position: relative; z-index: 1; }
+
+    /* ===== Header ===== */
+    header {
+      text-align: center;
+      padding-top: 130px;
+      padding-bottom: 40px;
+    }
+
+    h1 {
+      font-family: "Verdana", sans-serif;
+      font-size: 4rem;
+      font-weight: 900;
+      color: #fff9dc;
+      text-shadow:
+        0 0 10px rgba(255, 200, 120, 0.8),
+        0 0 25px rgba(255, 180, 80, 0.6);
+      animation: floatTitle 6s ease-in-out infinite;
+      margin-bottom: 15px;
+    }
+    @keyframes floatTitle { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+
+    .intro-text {
+      font-size: 1.4rem;
+      color: #ffefb3;
+      max-width: 700px;
+      margin: 0 auto 50px;
+      line-height: 1.6;
+    }
+
+    /* ===== Character Grid ===== */
+    .character-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 35px;
+      max-width: 1100px;
+      margin: 0 auto 120px;
+      padding: 0 20px;
+    }
+
+    .character-card {
+      border-radius: 20px;
+      padding: 25px;
+      text-align: center;
+      color: #222;
+      font-family: "Comic Sans MS", "Poppins", sans-serif;
+      box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .character-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 40px rgba(255, 230, 150, 0.6);
+    }
+
+    /* ===== Character Images ===== */
+    .character-card img {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 15px;
+      box-shadow: 0 0 25px rgba(255, 255, 255, 0.4);
+      border: 3px solid rgba(255, 255, 255, 0.5);
+    }
+
+    .character-card h3 {
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+      color: #000;
+    }
+
+    .character-card p {
+      font-size: 1.2rem;
+      color: #222;
+      line-height: 1.6;
+    }
+
+    /* ===== Gradient backgrounds ===== */
+    .character-card:nth-child(1) { background: linear-gradient(135deg, #fff7b1, #ffe28a); }
+    .character-card:nth-child(2) { background: linear-gradient(135deg, #b2f2ff, #88e0ff); }
+    .character-card:nth-child(3) { background: linear-gradient(135deg, #ffd6f5, #ffbde4); }
+    .character-card:nth-child(4) { background: linear-gradient(135deg, #c5ffcf, #98ffb3); }
+    .character-card:nth-child(5) { background: linear-gradient(135deg, #ffe9b8, #ffd27f); }
+    .character-card:nth-child(6) { background: linear-gradient(135deg, #d7c7ff, #beaaff); }
+
+    @media (max-width: 768px) {
+      h1 { font-size: 2.5rem; }
+      .intro-text { font-size: 1.1rem; }
+      .character-card img { width: 110px; height: 110px; }
+      .character-card p { font-size: 1rem; }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Navbar -->
+  <div class="w3-top">
+    <div class="w3-bar w3-white w3-card" id="myNavbar">
+      <a href="index.html" class="w3-bar-item w3-button w3-wide">SPACE WEATHER</a>
+      <div class="w3-right w3-hide-small">
+        <a href="index.html" class="w3-bar-item w3-button">HOME</a>
+        <a href="book.html" class="w3-bar-item w3-button"><i class="fa fa-book"></i> BOOK</a>
+        <a href="solarflare.html" class="w3-bar-item w3-button"><i class="fa fa-sun-o"></i> SOLAR FLARES</a>
+        <a href="characters.html" class="w3-bar-item w3-button"><i class="fa fa-users"></i> CHARACTERS</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header>
+    <h1><i class="fa fa-users"></i> Meet the Space Crew</h1>
+    <p class="intro-text">Say hello to our space friends who help us understand space weather every day!</p>
+  </header>
+
+  <!-- Character Cards -->
+  <section class="character-grid">
+    <div class="character-card">
+      <img src="cemy.png" alt="Cemy the Cloud">
+      <h3>☁️ Cemy the Cloud</h3>
+      <p>A cheerful cloud who loves floating high and watching the sky change colors.</p>
+    </div>
+
+    <div class="character-card">
+      <img src="farmer.png" alt="Sam the Farmer">
+      <h3>🌾 Sam the Farmer</h3>
+      <p>Sam grows crops and watches the weather carefully to protect his plants from space storms.</p>
+    </div>
+
+    <div class="character-card">
+      <img src="astro.png" alt="Astro the Astronaut">
+      <h3>👩‍🚀 Astro the Astronaut</h3>
+      <p>Astro explores space and reports when solar flares make things exciting above Earth!</p>
+    </div>
+
+    <div class="character-card">
+      <img src="pilot.png" alt="Captain Sky the Pilot">
+      <h3>✈️ Captain Sky</h3>
+      <p>Captain Sky flies high through the clouds and keeps her plane safe from space weather signals.</p>
+    </div>
+
+    <div class="character-card">
+      <img src="sunny.png" alt="Sunny the Sun">
+      <h3>☀️ Sunny the Sun</h3>
+      <p>Sunny shines bright every day and sometimes lets out big “Achoos!” called solar flares!</p>
+    </div>
+
+    <div class="character-card">
+      <img src="stella.png" alt="Stella the Star">
+      <h3>🌟 Stella</h3>
+      <p>A curious star who loves learning how the Sun’s energy reaches Earth and helps everything grow.</p>
+    </div>
+  </section>
+</body>
+</html>
