@@ -143,7 +143,7 @@
     const nextBtn = document.getElementById("nextBtn");
     const prevBtn = document.getElementById("prevBtn");
     const fullscreenBtn = document.getElementById("fullscreenBtn");
-    const totalPages = 16;
+    const totalPages = 17;
     let currentPage = 1;
 
     for (let i = 1; i <= totalPages; i++) {
@@ -305,14 +305,21 @@
         page.appendChild(dialogue);
       }
 
-      if (i === 15) {
+      if (i == 15){
+        const dialogue = document.createElement("div");
+        dialogue.classList.add("page-text-top");
+        dialogue.innerHTML = `<b>Cemy:</b> “I have an idea!"`;
+        page.appendChild(dialogue);
+      }
+
+      if (i === 16) {
         const dialogue = document.createElement("div");
         dialogue.classList.add("page-text-top");
         dialogue.innerHTML = `<b>Stella:</b> “Thank you, Cemy. That’s Beautiful.”<br><br><b>~ The End ~</b>`;
         page.appendChild(dialogue);
       }
 
-      if (i === 16) {
+      if (i === 17) {
         const disclaimer = document.createElement("div");
         disclaimer.classList.add("page-text-top");
         disclaimer.style.top = "50%";
