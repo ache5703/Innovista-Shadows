@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Space Weather — Flipbook</title>
 
   <!-- Styles -->
@@ -13,6 +13,15 @@
   <link rel="stylesheet" href="book.css" />
 
   <style>
+    .page {
+      position: relative;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      width: 100%;
+      height: 100%;
+    }
+
     .page-text-top, .page-text-bottom, .page-text-dialogue, .page-text-info {
       position: absolute;
       left: 50%;
@@ -20,29 +29,34 @@
       text-align: center;
       font-family: "Comic Sans MS", "Poppins", sans-serif;
       color: #fff6c2;
-      background: rgba(0, 0, 0, 0.35);
+      background: rgba(0,0,0,0.35);
       border-radius: 15px;
-      box-shadow: 0 0 25px rgba(255, 255, 200, 0.4);
+      box-shadow: 0 0 25px rgba(255,255,200,0.4);
       text-shadow: 1px 1px 3px #000;
       font-weight: 600;
-      opacity: 0;
-      animation: fadeIn 1.2s ease forwards;
       line-height: 1.5;
+      z-index: 2;
+      padding: 12px 18px;
+      opacity: 1;
     }
 
-    .page-text-top { top: 25px; width: 85%; padding: 12px 18px; font-size: 1.8rem; animation-delay: 0.3s; }
-    .page-text-bottom { bottom: 30px; width: 85%; padding: 12px 18px; font-size: 1.8rem; animation-delay: 0.6s; }
-    .page-text-dialogue { bottom: 140px; width: 70%; padding: 10px 16px; font-size: 1.6rem; background: rgba(0,0,0,0.4); border: 2px solid rgba(255,255,255,0.4); animation-delay: 0.5s; }
-    .page-text-info { bottom: 45px; width: 80%; padding: 10px 18px; font-size: 1.6rem; background: rgba(20,20,20,0.45); border: 1px solid rgba(255,255,255,0.25); animation-delay: 0.7s; }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateX(-50%) translateY(20px); }
-      to { opacity: 1; transform: translateX(-50%) translateY(0); }
-    }
+    .page-text-top { top: 25px; width: 85%; font-size: 1.8rem; }
+    .page-text-bottom { bottom: 30px; width: 85%; font-size: 1.8rem; }
+    .page-text-dialogue { bottom: 120px; width: 70%; font-size: 1.6rem; background: rgba(0,0,0,0.45); border: 2px solid rgba(255,255,255,0.4); }
+    .page-text-info { bottom: 45px; width: 80%; font-size: 1.6rem; background: rgba(20,20,20,0.45); border: 1px solid rgba(255,255,255,0.25); }
 
     .page-text-top b, .page-text-bottom b, .page-text-dialogue b, .page-text-info b {
       color: #ffe15a;
       font-weight: 800;
+    }
+
+    .disclaimer-title {
+      display: block;
+      font-size: 2rem;
+      font-weight: 900;
+      color: #ffe15a;
+      margin-bottom: 15px;
+      text-transform: uppercase;
     }
 
     body:not(.fullscreen) .page-text-top,
@@ -112,11 +126,12 @@
     </div>
   </div>
 
+  <!-- Flipbook -->
   <main>
     <div class="flipbook" id="flipbook"></div>
     <div class="controls">
       <button id="prevBtn"><i class="fa fa-arrow-left"></i> Back</button>
-      <span id="pageIndicator">1 / 15</span>
+      <span id="pageIndicator">1 / 16</span>
       <button id="nextBtn">Next <i class="fa fa-arrow-right"></i></button>
       <button id="fullscreenBtn"><i class="fa fa-expand"></i> Full Screen</button>
     </div>
@@ -128,8 +143,7 @@
     const nextBtn = document.getElementById("nextBtn");
     const prevBtn = document.getElementById("prevBtn");
     const fullscreenBtn = document.getElementById("fullscreenBtn");
-
-    const totalPages = 15;
+    const totalPages = 16;
     let currentPage = 1;
 
     for (let i = 1; i <= totalPages; i++) {
@@ -137,26 +151,40 @@
       page.classList.add("page");
       if (i !== 1) page.classList.add("hidden");
       page.style.backgroundImage = `url('page${i}.png')`;
+      if (i === 1) page.style.backgroundPosition = "center 60px";
 
-      // Page 3
-      if (i === 3) {
-        const topText = document.createElement("div");
-        topText.classList.add("page-text-top");
-        topText.innerHTML = `Solar particles get propelled through space at high speeds.<br>This is called a <b>radiation storm</b>.`;
-        page.appendChild(topText);
+      // PAGE 2
+      if (i === 2) {
+        const top = document.createElement("div");
+        top.classList.add("page-text-top");
+        top.innerHTML = `This is <b>Sunny</b>. Sunny is taking a nap.<br>Sunny is a restless sleeper. As Sunny turns, her magnetic waves get tangled.`;
+        page.appendChild(top);
 
-        const bottomText = document.createElement("div");
-        bottomText.classList.add("page-text-bottom");
-        bottomText.innerHTML = `This is <b>Cemy</b>. Cemy is a <b>Coronal Mass Ejection (CME)</b>, which is an enormous cloud of solar material.<br>Cemy is surrounded by his own magnetic field.`;
-        page.appendChild(bottomText);
+        const bottom = document.createElement("div");
+        bottom.classList.add("page-text-bottom");
+        bottom.innerHTML = `Oh no! Some strands snapped!<br>This creates a bright light known as a <b>Solar Flare</b> and releases large amounts of energy.`;
+        page.appendChild(bottom);
       }
 
-      // Page 4
+      // PAGE 3
+      if (i === 3) {
+        const top = document.createElement("div");
+        top.classList.add("page-text-top");
+        top.innerHTML = `Solar particles get propelled through space at high speeds.<br>This is called a <b>radiation storm</b>.`;
+        page.appendChild(top);
+
+        const bottom = document.createElement("div");
+        bottom.classList.add("page-text-bottom");
+        bottom.innerHTML = `This is <b>Cemy</b>. Cemy is a <b>Coronal Mass Ejection (CME)</b>, which is an enormous cloud of solar material.<br>Cemy is surrounded by his own magnetic field.`;
+        page.appendChild(bottom);
+      }
+
+      // PAGE 4
       if (i === 4) {
-        const topText = document.createElement("div");
-        topText.classList.add("page-text-top");
-        topText.innerHTML = `<b>Cemy</b> has approached a rocket!<br>This is <b>Astro the Astronaut's</b> rocket.`;
-        page.appendChild(topText);
+        const top = document.createElement("div");
+        top.classList.add("page-text-top");
+        top.innerHTML = `<b>Cemy</b> has approached a rocket!<br>This is <b>Astro the Astronaut's</b> rocket.`;
+        page.appendChild(top);
 
         const dialogue = document.createElement("div");
         dialogue.classList.add("page-text-dialogue");
@@ -169,38 +197,36 @@
         page.appendChild(info);
       }
 
-      // Page 5
+      // PAGE 5–11
       if (i === 5) {
-        const topText = document.createElement("div");
-        topText.classList.add("page-text-top");
-        topText.innerHTML = `<b>Cemy</b> left <b>Astro's ship</b> in a jumble!`;
-        page.appendChild(topText);
+        const top = document.createElement("div");
+        top.classList.add("page-text-top");
+        top.innerHTML = `<b>Cemy</b> left <b>Astro's ship</b> in a jumble!`;
+        page.appendChild(top);
 
-        const bottomText = document.createElement("div");
-        bottomText.classList.add("page-text-bottom");
-        bottomText.innerHTML = `The <b>communication</b> and <b>navigation systems</b> are down.<br>This is dangerous for <b>Astro</b>!`;
-        page.appendChild(bottomText);
+        const bottom = document.createElement("div");
+        bottom.classList.add("page-text-bottom");
+        bottom.innerHTML = `The <b>communication</b> and <b>navigation systems</b> are down.<br>This is dangerous for <b>Astro</b>!`;
+        page.appendChild(bottom);
       }
 
-      // Page 6
       if (i === 6) {
-        const dialogue = document.createElement("div");
-        dialogue.classList.add("page-text-top");
-        dialogue.innerHTML = `<b>Astro:</b> “Woah! Everything is falling! That big burst of particles must have caused this!”`;
-        page.appendChild(dialogue);
+        const top = document.createElement("div");
+        top.classList.add("page-text-top");
+        top.innerHTML = `<b>Astro:</b> “Woah! Everything is falling! That big burst of particles must have caused this!”`;
+        page.appendChild(top);
 
-        const bottomText = document.createElement("div");
-        bottomText.classList.add("page-text-bottom");
-        bottomText.innerHTML = `<b>Astro:</b> “Now I can't go on my spacewalk!”`;
-        page.appendChild(bottomText);
+        const bottom = document.createElement("div");
+        bottom.classList.add("page-text-bottom");
+        bottom.innerHTML = `<b>Astro:</b> “Now I can't go on my spacewalk!”`;
+        page.appendChild(bottom);
       }
 
-      // Page 7
       if (i === 7) {
-        const topText = document.createElement("div");
-        topText.classList.add("page-text-top");
-        topText.innerHTML = `This is <b>Captain Skye</b>.<br>Captain Skye is a <b>pilot</b> flying across the <b>Poles</b> to make an important shipment.`;
-        page.appendChild(topText);
+        const top = document.createElement("div");
+        top.classList.add("page-text-top");
+        top.innerHTML = `This is <b>Captain Skye</b>.<br>Captain Skye is a <b>pilot</b> flying across the <b>Poles</b> to make an important shipment.`;
+        page.appendChild(top);
 
         const dialogue = document.createElement("div");
         dialogue.classList.add("page-text-dialogue");
@@ -208,12 +234,11 @@
         page.appendChild(dialogue);
       }
 
-      // Page 8
       if (i === 8) {
-        const topText = document.createElement("div");
-        topText.classList.add("page-text-top");
-        topText.innerHTML = `Oh no! <b>Cemy</b> is at it again!<br>His <b>magnetic waves</b> are interfering with the plane’s <b>radio</b> and <b>autopilot</b> devices!`;
-        page.appendChild(topText);
+        const top = document.createElement("div");
+        top.classList.add("page-text-top");
+        top.innerHTML = `Oh no! <b>Cemy</b> is at it again!<br>His <b>magnetic waves</b> are interfering with the plane’s <b>radio</b> and <b>autopilot</b> devices!`;
+        page.appendChild(top);
 
         const dialogue = document.createElement("div");
         dialogue.classList.add("page-text-dialogue");
@@ -222,12 +247,11 @@
         page.appendChild(dialogue);
       }
 
-      // Page 9
       if (i === 9) {
-        const topText = document.createElement("div");
-        topText.classList.add("page-text-top");
-        topText.innerHTML = `<b>Farmer Sam</b> is using his tractor to tend to the crops.<br>The receiver in the tractor helps Sam find his way through the tall corn fields.`;
-        page.appendChild(topText);
+        const top = document.createElement("div");
+        top.classList.add("page-text-top");
+        top.innerHTML = `<b>Farmer Sam</b> is using his tractor to tend to the crops.<br>The receiver in the tractor helps Sam find his way through the tall corn fields.`;
+        page.appendChild(top);
 
         const thought = document.createElement("div");
         thought.classList.add("page-text-dialogue");
@@ -235,17 +259,75 @@
         page.appendChild(thought);
       }
 
-      // Page 10
       if (i === 10) {
-        const topText = document.createElement("div");
-        topText.classList.add("page-text-top");
-        topText.innerHTML = `Not again! <b>Cemy</b>! What a troublesome storm!`;
-        page.appendChild(topText);
+        const top = document.createElement("div");
+        top.classList.add("page-text-top");
+        top.innerHTML = `Not again! <b>Cemy</b>! What a troublesome storm!`;
+        page.appendChild(top);
 
-        const bottomText = document.createElement("div");
-        bottomText.classList.add("page-text-bottom");
-        bottomText.innerHTML = `The tractor is veering off course!<br><b>Watch out, Sam!</b>`;
-        page.appendChild(bottomText);
+        const bottom = document.createElement("div");
+        bottom.classList.add("page-text-bottom");
+        bottom.innerHTML = `The tractor is veering off course!<br><b>Watch out, Sam!</b>`;
+        page.appendChild(bottom);
+      }
+
+      if (i === 11) {
+        const top = document.createElement("div");
+        top.classList.add("page-text-top");
+        top.innerHTML = `<b>Yikes!</b> It looks like <b>Farmer Sam</b> accidentally drove into the pond!`;
+        page.appendChild(top);
+
+        const bottom = document.createElement("div");
+        bottom.classList.add("page-text-bottom");
+        bottom.innerHTML = `This will take a while to fix.<br>He won’t be able to sell as much corn today.`;
+        page.appendChild(bottom);
+      }
+
+      // PAGE 12–16 (new)
+      if (i === 12) {
+        const dialogue = document.createElement("div");
+        dialogue.classList.add("page-text-top");
+        dialogue.innerHTML = `<b>Stella:</b> “Mom, is there any popcorn left?”<br><b>Mom (offscreen):</b> “Sorry, Stella, there wasn’t any popcorn left at the store. Do you still want to watch the movie?”<br><b>Stella:</b> “No, that’s okay. Let’s skip it tonight.”`;
+        page.appendChild(dialogue);
+      }
+
+      if (i === 13) {
+        const dialogue = document.createElement("div");
+        dialogue.classList.add("page-text-top");
+        dialogue.innerHTML = `<b>Stella:</b> “Oh! Who are you?”<br><b>Cemy:</b> “I’m Cemy, a Coronal Mass Ejection. I’ve travelled here all the way from the Sun, disrupting all kinds of gadgets and machines with my electromagnetic field! There was a rocket ship, an airplane, and even a tractor!”`;
+        page.appendChild(dialogue);
+      }
+
+      if (i === 14) {
+        const dialogue = document.createElement("div");
+        dialogue.classList.add("page-text-top");
+        dialogue.innerHTML = `<b>Stella:</b> “Oh no! Cemy that’s terrible! You made the rocket break down, the airplane lose control, and the tractor crash! That could have seriously hurt people!”<br><b>Cemy:</b> “I’m sorry! I didn’t want to hurt anybody! I just cause trouble wherever I go. I can’t help it!”`;
+        page.appendChild(dialogue);
+      }
+
+      if (i === 15) {
+        const dialogue = document.createElement("div");
+        dialogue.classList.add("page-text-top");
+        dialogue.innerHTML = `<b>Stella:</b> “Thank you, Cemy. That’s Beautiful.”<br><br><b>~ The End ~</b>`;
+        page.appendChild(dialogue);
+      }
+
+      if (i === 16) {
+        const disclaimer = document.createElement("div");
+        disclaimer.classList.add("page-text-top");
+        disclaimer.style.top = "50%";
+        disclaimer.style.transform = "translate(-50%, -50%)";
+        disclaimer.style.width = "90%";
+        disclaimer.style.fontSize = "1.5rem";
+        disclaimer.innerHTML = `
+          <span class="disclaimer-title">Disclaimer Page:</span>
+          While Cemy's story is a work of fiction, <b>Coronal Mass Ejections (CMEs)</b> are real and they do cause
+          electromagnetic disturbances that affect our technologies and climate.<br><br>
+          These releases of solar energy happen all the time, but most do not get past Earth's own electromagnetic shield,
+          causing beautiful <b>auroras</b>.<br><br>
+          To help prepare us for the ones that do, <b>NASA</b> collects solar flare imaging and data using their satellites.
+        `;
+        page.appendChild(disclaimer);
       }
 
       flipbook.appendChild(page);
