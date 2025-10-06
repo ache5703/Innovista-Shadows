@@ -310,13 +310,23 @@
         dialogue.classList.add("page-text-top");
         dialogue.innerHTML = `<b>Cemy:</b> “I have an idea!"`;
         page.appendChild(dialogue);
+
+        const bottom = document.createElement("div");
+        bottom.classList.add("page-text-bottom");
+        bottom.innerHTML = `Cemy flew to the top of Earth's atmosphere, and his solar particles dissipate into the sky.`;
+        page.appendChild(bottom);
       }
 
       if (i === 16) {
         const dialogue = document.createElement("div");
         dialogue.classList.add("page-text-top");
-        dialogue.innerHTML = `<b>Stella:</b> “Thank you, Cemy. That’s Beautiful.”<br><br><b>~ The End ~</b>`;
+        dialogue.innerHTML = `Cemy's solar particles create a beautiful display of colors and lights that can be seen all around, known as </b>auroras</b>.`;
         page.appendChild(dialogue);
+
+        const bottom = document.createElement("div");
+        bottom.classList.add("page-text-bottom");
+        bottom.innerHTML = `<b>Stella:</b> “Thank you, Cemy. That’s Beautiful.”<br><br><b>~ The End ~</b>`;
+        page.appendChild(bottom);
       }
 
       if (i === 17) {
